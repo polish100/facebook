@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'top#index'
+  devise_for :users
+  root 'top#index'
   resources :topics
 end

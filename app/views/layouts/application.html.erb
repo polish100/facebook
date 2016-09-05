@@ -5,10 +5,22 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-<%= yield %>
+  <header>
+    <ul>
+      <li><%= link_to "Facebook", root_path %></li>
+      <li><%= link_to "トピック", topics_path %></li>
+    </ul>
+  </header>
+
+  <%= yield %>
+
+  <footer>
+    <p>Facebook ©2016</p>
+  </footer>
 
 </body>
 </html>

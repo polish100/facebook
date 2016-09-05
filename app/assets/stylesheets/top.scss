@@ -1,3 +1,99 @@
 // Place all the styles related to the top controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  margin: 0;
+  width: 100%;
+  background-size: cover;
+/*  background-image: url("images-master/header.jpg");*/
+  background-attachment: fixed;
+  text-align: center;
+}
+
+header {
+  width: 100%;
+  background-color:#3b5998;
+  height: 54px;
+}
+
+header ul {
+  margin: 0 auto;
+  list-style: none;
+}
+
+header ul a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+header ul:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+header li {
+  float: left;
+  width: auto;
+}
+
+.function {
+  background-color: #e9e9e9;
+  padding: 80px;
+  padding-bottom:185px;
+}
+
+.function-images {
+  width: 100%;
+  display: table;
+  margin-top: 60px;
+  table-layout: fixed;
+}
+
+.function-image {
+  display: table-cell;
+  width: 100%;
+}
+
+.message {
+  background-color: #e9e9e9;
+  padding-bottom: 15%;
+  width: 100%;
+  background-size: cover;
+/*  background-image: url("header.jpg");*/
+  background-attachment: fixed;
+  color: #0e385f;
+  font-weight: bold;
+
+}
+
+.message img {
+  display: block;
+  margin: 0 auto;
+  width: 25%;
+  padding-top: 16%;
+}
+
+.about {
+  background-color: #e9e9e9;
+  color: #333;
+  padding: 80px
+}
+
+footer {
+  width: 100%;
+  background-color: white;
+  padding: 20px 0px;
+  color: #90949c;
+  font-size: 12px;
+  width: 100%;
+  position: absolute;
+  bottom:0;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}

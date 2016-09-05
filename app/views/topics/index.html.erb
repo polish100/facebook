@@ -1,29 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Topics</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container">
+  <div class="wrapper col-md-8 col-md-offset-2 col-sm-10">
+    <p><%= notice %></p>
+    <h1>ブログ一覧</h1>
+      <%= link_to "ブログを作成する", new_topic_path, class: 'btn btn-default' %>
     <% @topics.each do |topic| %>
-      <tr>
-        <td><%= topic.title %></td>
-        <td><%= topic.content %></td>
-        <td><%= link_to 'Show', topic %></td>
-        <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
-        <td><%= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <div class="row">
+      <h4><strong><%= topic.title %></strong></h4>
+      <p><%= topic.content %></p>
+      <%= link_to "編集", edit_topic_path(topic.id), class: 'btn btn-default btn-sm btn-success' %>
+      <%= link_to "削除", topic_path(topic.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: 'btn btn-default btn-sm btn btn-danger' %>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Topic', new_topic_path %>
+  </div>
+</div>
