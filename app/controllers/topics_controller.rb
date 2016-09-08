@@ -31,6 +31,7 @@ class TopicsController < ApplicationController
       if @topic.save
         format.html { redirect_to @topic, notice: 'トピックを作成しました' }
         format.json { render :show, status: :created, location: @topic }
+        NoticeMailer.sendmail_topic(@topic).deliver
       else
         format.html { render :new }
         format.json { render json: @topic.errors, status: :unprocessable_entity }

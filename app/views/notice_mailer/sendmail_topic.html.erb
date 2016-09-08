@@ -1,0 +1,8 @@
+<h1>Facebookに新しくブログが投稿されました！</h1>
+
+<h4>title: <%= @topic.title %></h4>
+<p>content: <%= @topic.content %></p>
+
+<p>
+  <%= link_to '投稿されたブログはこちら', topics_path(@topic) %>
+</p>
