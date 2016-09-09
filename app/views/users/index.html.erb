@@ -5,6 +5,7 @@
       <%= profile_img(user) if profile_img(user) %>
       <h4><strong><%= user.name %></strong></h4>
       <p><%= user.email %></p>
+      <%= render 'follow_form', user: user %>
     </div>
     <% end %>
   </div>

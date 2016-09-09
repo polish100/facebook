@@ -1,18 +1,24 @@
-<div class="container">
+<p id="notice"><%= notice %></p>
+<div class="child row">
   <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
-    <p id="notice"><%= notice %></p>
-
-    <p>
-      <strong>Title:</strong>
-      <%= @topic.title %>
-    </p>
-
-    <p>
-      <strong>Content:</strong>
-      <%= @topic.content %>
-    </p>
-
-    <%= link_to 'Edit', edit_topic_path(@topic) %> |
-    <%= link_to 'Back', topics_path %>
+    <div class="topic-text">
+      <p class="left"><strong>タイトル</strong></p>
+      <p class="left"><%= @topic.title %></p>
+      <p class="left"><strong>内容</strong></p>
+      <p class="left"><%= simple_format(@topic.content) %></p>
+      <p class="right">
+        <strong>作成時間:</strong>
+        <%= @topic.created_at.strftime("%y/%m/%d %p %l:%M") %>
+      </p>
+    </div>
+    <p>コメント一覧</p>
+    <div id="comments_area">
+      <%= render partial: 'comments/index', locals: { comments: @comments, topic: @topic } %>
+    </div>
+    <%= render partial: 'comments/form', locals: { comment: @comment, topic: @topic } %>
+    <% if current_user.id == @topic.user_id %>
+      <%= link_to '編集', edit_topic_path(@topic) %> |
+    <% end %>
+    <%= link_to '戻る', topics_path %>
   </div>
 </div>

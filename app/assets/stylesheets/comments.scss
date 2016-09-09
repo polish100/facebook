@@ -1,0 +1,17 @@
+ul{
+  padding: 0;
+}
+
+.child li {
+  padding-top: 13px;
+  border-bottom: 1px dotted #ccc;
+  list-style-type: none;
+}
+
+.right {
+text-align: right;
+}
+
+.left {
+text-align: left;
+}

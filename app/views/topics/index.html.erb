@@ -5,8 +5,15 @@
       <%= link_to "トピックを作成する", new_topic_path, class: 'btn btn-default' %>
     <% @topics.each do |topic| %>
     <div class="row">
-      <h4><strong><%= topic.title %></strong></h4>
-      <p><%= topic.content %></p>
+      <div class = "imgleft">
+      <%= profile_img(topic.user) if profile_img(topic.user) %>
+      </div>
+      <!-- <h4><strong><%= topic.title %></strong></h4> -->
+      <%= topic.user.name %><br>
+      <%= topic.updated_at %><br clear="left">
+      <%= link_to topic_path(topic) do %>
+        <p>タイトル：<%= topic.title %></p>
+      <% end %>
       <%= link_to "編集", edit_topic_path(topic.id), class: 'btn btn-default btn-sm btn-success' %>
       <%= link_to "削除", topic_path(topic.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: 'btn btn-default btn-sm btn btn-danger' %>
     </div>

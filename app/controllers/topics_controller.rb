@@ -11,6 +11,8 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @comment = @topic.comments.build
+    @comments = @topic.comments
   end
 
   # GET /topics/new
