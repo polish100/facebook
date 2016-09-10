@@ -2,14 +2,13 @@
 <div class="child row">
   <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
     <div class="topic-text">
-      <p class="left"><strong>タイトル</strong></p>
-      <p class="left"><%= @topic.title %></p>
-      <p class="left"><strong>内容</strong></p>
+      <p class="left"><%= profile_img(@topic.user) if profile_img(@topic.user) %></P>
+      <p class="left"><%= @topic.user.name %></p>
+      <p class="left"><strong>タイトル:</strong><%= @topic.title %></p>
+      <p class="left"><strong>作成時間:</strong><%= @topic.created_at.strftime("%y/%m/%d %p %l:%M") %></p>
+      <p class="left"><strong>内容:</strong></p>
       <p class="left"><%= simple_format(@topic.content) %></p>
-      <p class="right">
-        <strong>作成時間:</strong>
-        <%= @topic.created_at.strftime("%y/%m/%d %p %l:%M") %>
-      </p>
+
     </div>
     <p>コメント一覧</p>
     <div id="comments_area">
