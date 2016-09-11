@@ -3,12 +3,15 @@
     <% @users.each do |user| %>
     <div class="row">
       <%= profile_img(user) if profile_img(user) %>
-      <h4><strong><%= user.name %></strong></h4>
+      <h4><strong><%= link_to user.name, user %></strong></h4>
       <p><%= user.email %></p>
       <% if user.id != current_user.id %>
           <div class="item">
-            <%= link_to user.name, user %>
+            <% #binding.pry %>
+            <% #if  %>
+            <% if current_user.following?(user) && current_user.followed?(user) %>
             <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+            <% end %>
           </div>
           <%= render partial: 'follow_form', locals: { user: user } if signed_in?   %>
       <% end %>
