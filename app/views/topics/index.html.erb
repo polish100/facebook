@@ -5,9 +5,9 @@
     <div class="col-sm-3 sidemenu">
       <ul>
         <li><%= link_to 'ホーム', root_path %></li>
-        <li><%= link_to 'マイページ', edit_user_registration_path %></li>
         <li><%= link_to 'ユーザ一覧', users_path %></li>
         <li><%= link_to "メッセージ", conversations_path %></li>
+        <li><%= link_to 'アカウント管理', edit_user_registration_path %></li>
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
