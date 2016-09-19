@@ -1,10 +1,47 @@
 <div class="container">
-  <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
-    <h1>トピックの編集</h1>
-
-    <%= render 'form' %>
-
-    <%= link_to '見る', @topic %> |
-    <%= link_to 'トピック一覧に戻る', topics_path %>
+  <!-- <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1"> -->
+  <div class="col-sm-3 sidemenu">
+    <ul>
+      <li><%= link_to 'ホーム', root_path %></li>
+      <li><%= link_to 'マイページ', edit_user_registration_path %></li>
+      <li><%= link_to 'ユーザ一覧', users_path %></li>
+      <li><%= link_to "メッセージ", conversations_path %></li>
+      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+    </ul>
   </div>
+  <div class="col-sm-6 topics">
+    <div class="row">
+      <h1>トピックの編集</h1>
+
+      <%= render 'form' %>
+
+      <%= link_to '戻る', @topic %> |
+      <%= link_to 'トピック一覧に戻る', topics_path %>
+    </div>
+  </div>
+  <div class="col-sm-3 friends">
+    <p class="friends_followed">フォロワー</p>
+    <ul>
+      <% if current_user.followed_users.blank? %>
+      ※フォローしていません。
+      <% else %>
+      <% current_user.followed_users.each do |followed_user| %>
+      <%= profile_img(followed_user) if profile_img(followed_user) %>
+      名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
+    <p class="friends_follower">フォローユーザ</p>
+    <ul>
+      <% if current_user.followers.blank? %>
+      ※フォロワーはいません。
+      <% else %>
+      <% current_user.followers.each do |follower| %>
+      <%= profile_img(follower) if profile_img(follower) %>
+      名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
+  </div>
+
 </div>

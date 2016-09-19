@@ -1,62 +1,98 @@
 <div class="container">
-  <div class="wrapper col-md-8 col-md-offset-2 col-sm-10">
-    <h2>マイページ <%= resource_name.to_s.humanize %></h2>
+  <!-- <div class="wrapper col-md-8 col-md-offset-2 col-sm-10"> -->
+  <div class="col-sm-3 sidemenu">
+    <ul>
+      <li><%= link_to 'ホーム', root_path %></li>
+      <li><%= link_to 'マイページ', edit_user_registration_path %></li>
+      <li><%= link_to 'ユーザ一覧', users_path %></li>
+      <li><%= link_to "メッセージ", conversations_path %></li>
+      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+    </ul>
+  </div>
+  <div class="col-sm-6 mypage">
+    <div class="row">
+      <!-- <h2>マイページ</h2> -->
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= f.error_messages! %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_messages! %>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true,class: 'form-control' %>
-    </div>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true,class: 'form-control' %>
+      </div>
 
-    <div class="field">
-      <%= f.label :名前 %><br />
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
+      <div class="field">
+        <%= f.label :名前 %><br />
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
 
-    <% if @user.provider.blank? %>
+      <% if @user.provider.blank? %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off",class: 'form-control' %>
-      <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
+
+      <div class="field">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off",class: 'form-control' %>
+        <% if @minimum_password_length %>
+        <br />
+        <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :パスワード確認 %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off",class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :現在のパスワード %> <i>変更する為に現在のパスワードを入力して下さ  い</i><br />
+        <%= f.password_field :current_password, autocomplete: "off",class: 'form-control' %>
+      </div>
+
+      <% end %>
+
+      <div class="field">
+        <%= profile_img(@user) if profile_img(@user) %>
+        <%= f.file_field :avatar %>
+        <%= f.hidden_field :avatar_cache %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "更新", class: 'btn btn-primary btn-sm' %>
+      </div>
+      <% end %>
+
+      <h3>アカウントの削除</h3>
+
+      <p><%= button_to "削除", registration_path(resource_name), class: 'btn btn-danger btn-sm',data: { confirm: "本当に削除しますか?" }, method: :delete %></p>
+
     </div>
+  </div>
 
-    <div class="field">
-      <%= f.label :パスワード確認 %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off",class: 'form-control' %>
-    </div>
-
-    <div class="field">
-      <%= f.label :現在のパスワード %> <i>変更する為に現在のパスワードを入力して下さい</i><br />
-      <%= f.password_field :current_password, autocomplete: "off",class: 'form-control' %>
-    </div>
-
-    <% end %>
-
-    <div class="field">
-      <%= profile_img(@user) if profile_img(@user) %>
-      <%= f.file_field :avatar %>
-      <%= f.hidden_field :avatar_cache %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "更新", class: 'btn btn-primary btn-block' %>
-    </div>
-    <% end %>
-
-    <h3>アカウントの削除</h3>
-
-    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "本当に削除しますか?" }, method: :delete %></p>
-
-    <%= link_to "Back", :back %>
+  <div class="col-sm-3 friends">
+    <p class="friends_followed">フォロワー</p>
+    <ul>
+      <% if current_user.followed_users.blank? %>
+      ※フォローしていません。
+      <% else %>
+      <% current_user.followed_users.each do |followed_user| %>
+      <%= profile_img(followed_user) if profile_img(followed_user) %>
+      名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
+    <p class="friends_follower">フォローユーザ</p>
+    <ul>
+      <% if current_user.followers.blank? %>
+      ※フォロワーはいません。
+      <% else %>
+      <% current_user.followers.each do |follower| %>
+      <%= profile_img(follower) if profile_img(follower) %>
+      名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
   </div>
 </div>

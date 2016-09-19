@@ -1,35 +1,73 @@
 
 <div class="container">
-  <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
-        <%= profile_img(@user) if profile_img(@user) %>
+  <!-- <div class="wrapper col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1"> -->
+  <div class="col-sm-3 sidemenu">
+    <ul>
+      <li><%= link_to 'ホーム', root_path %></li>
+      <li><%= link_to 'マイページ', edit_user_registration_path %></li>
+      <li><%= link_to 'ユーザ一覧', users_path %></li>
+      <li><%= link_to "メッセージ", conversations_path %></li>
+      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+    </ul>
+  </div>
+  <div class="col-sm-6 friends user_show">
+    <div class="row">
+      <h4>ユーザ情報</h4>
+      <p><%= profile_img(@user) if profile_img(@user) %></p>
+      <p>
+        名前：<%= @user.name %><br>
+        メール：<%= @user.email %><br>
         認証方法：<%= @user.provider.blank? ? "メール" : @user.provider %><br>
-        登録日時：<%= @user.created_at %><br>
-        フォロワー：
-        <ul>
-          <% if @user.followed_users.blank? %>
-          ※フォローしていません。
-          <% else %>
-            <% @user.followed_users.each do |followed_user| %>
-              <%= profile_img(followed_user) if profile_img(followed_user) %>
-              名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
-            <% end %>
-          <% end %>
+        登録日時：<%= @user.created_at %><br><br>
+      </p>
+      <p class="friends_followed">フォロワー</p>
+      <ul>
+        <% if @user.followed_users.blank? %>
+        ※フォローしていません。
+        <% else %>
+        <% @user.followed_users.each do |followed_user| %>
+        <%= profile_img(followed_user) if profile_img(followed_user) %>
+        名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
+        <% end %>
+        <% end %>
+      </ul>
 
-
-        </ul>
-        フォローユーザ：
-        <ul>
-          <% if @user.followers.blank? %>
-          ※フォロワーはいません。
-          <% else %>
-            <% @user.followers.each do |follower| %>
-              <%= profile_img(follower) if profile_img(follower) %>
-              名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
-            <% end %>
-          <% end %>
-        </ul>
-
-        <br>
-        <%= link_to 'ユーザ一覧に戻る', users_path %>
-      </div>
+      <p class="friends_follower">フォローユーザ</p>
+      <ul>
+        <% if @user.followers.blank? %>
+        ※フォロワーはいません。
+        <% else %>
+        <% @user.followers.each do |follower| %>
+        <%= profile_img(follower) if profile_img(follower) %>
+        名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
+        <% end %>
+        <% end %>
+      </ul>
     </div>
+  </div>
+  <!-- <div class="col-sm-3"></div> -->
+  <div class="col-sm-3 friends">
+    <p class="friends_followed">フォロワー</p>
+    <ul>
+      <% if current_user.followed_users.blank? %>
+      ※フォローしていません。
+      <% else %>
+      <% current_user.followed_users.each do |followed_user| %>
+      <%= profile_img(followed_user) if profile_img(followed_user) %>
+      名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
+    <p class="friends_follower">フォローユーザ</p>
+    <ul>
+      <% if current_user.followers.blank? %>
+      ※フォロワーはいません。
+      <% else %>
+      <% current_user.followers.each do |follower| %>
+      <%= profile_img(follower) if profile_img(follower) %>
+      名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
+      <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

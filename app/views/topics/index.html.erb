@@ -1,24 +1,60 @@
-<div class="container">
-  <div class="wrapper col-md-8 col-md-offset-2 col-sm-10">
-    <p><%= notice %></p>
-    <h1>トピック一覧</h1>
-      <%= link_to "トピックを作成する", new_topic_path, class: 'btn btn-default' %>
-    <% @topics.each do |topic| %>
-    <div class="row">
-      <div class = "imgleft">
-      <%= profile_img(topic.user) if profile_img(topic.user) %>
-      </div>
-      <!-- <h4><strong><%= topic.title %></strong></h4> -->
-      <%= topic.user.name %><br>
-      <%= topic.updated_at %><br clear="left">
-      <%= link_to topic_path(topic) do %>
+<div id="topics">
+
+  <div class="container">
+    <!-- <div class="wrapper col-md-8 col-md-offset-2 col-sm-10"> -->
+    <div class="col-sm-3 sidemenu">
+      <ul>
+        <li><%= link_to 'ホーム', root_path %></li>
+        <li><%= link_to 'マイページ', edit_user_registration_path %></li>
+        <li><%= link_to 'ユーザ一覧', users_path %></li>
+        <li><%= link_to "メッセージ", conversations_path %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </div>
+    <div class="col-sm-6 topics">
+      <p><%= notice %></p>
+      <%= link_to "投稿", new_topic_path, class: 'btn btn-default btn-sm' %>
+      <% @topics.each do |topic| %>
+      <div class="row">
+        <div class = "imgleft">
+          <%= profile_img(topic.user) if profile_img(topic.user) %>
+        </div>
+        <!-- <h4><strong><%= topic.title %></strong></h4> -->
+        <%= topic.user.name %><br>
+        <%= topic.updated_at %><br clear="left">
+        <%= link_to topic_path(topic) do %>
         <p>タイトル：<%= topic.title %></p>
-      <% end %>
-      <% if topic.user.id == current_user.id %>
-      <%= link_to "編集", edit_topic_path(topic.id), class: 'btn btn-default btn-sm btn-success' %>
-      <%= link_to "削除", topic_path(topic.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: 'btn btn-default btn-sm btn btn-danger' %>
+        <% end %>
+        <% if topic.user.id == current_user.id %>
+        <%= link_to "編集", edit_topic_path(topic.id), class: 'btn btn-default btn-xs btn-default' %>
+        <%= link_to "削除", topic_path(topic.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: 'btn btn-default btn-xs btn btn-danger' %>
+        <% end %>
+      </div>
       <% end %>
     </div>
-    <% end %>
+    <div class="col-sm-3 friends">
+      <p class="friends_followed">フォロワー</p>
+      <ul>
+        <% if current_user.followed_users.blank? %>
+        ※フォローしていません。
+        <% else %>
+        <% current_user.followed_users.each do |followed_user| %>
+        <%= profile_img(followed_user) if profile_img(followed_user) %>
+        名前：<%= followed_user.name.blank? ? "名無しさん" : followed_user.name %><br><br>
+        <% end %>
+        <% end %>
+      </ul>
+      <p class="friends_follower">フォローユーザ</p>
+      <ul>
+        <% if current_user.followers.blank? %>
+        ※フォロワーはいません。
+        <% else %>
+        <% current_user.followers.each do |follower| %>
+        <%= profile_img(follower) if profile_img(follower) %>
+        名前：<%= follower.name.blank? ? "名無しさん" : follower.name %><br><br>
+        <% end %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

@@ -1,7 +1,21 @@
 <div class="container">
-  <div class="wrapper col-md-8 col-md-offset-2 col-sm-10">
-    <h2>アカウント登録</h2>
+  <div class="col-sm-6">
+  <!-- <div class="pull-right"> -->
 
+  <div class="message">
+    <p class="flash"><%= notice %><%= alert %></p>
+    <p>Facebookを使うと、友達や同僚、同級生、仲間たちとつながりを深められます。ケータイ、スマートフォンからもアクセスできます。</p>
+    <img src="https://www.facebook.com/rsrc.php/v3/yx/r/pyNVUg5EM0j.png">
+  </div>
+
+  <!-- </div> -->
+  </div>
+
+  <!-- <div class="wrapper col-md-8 col-md-offset-2 col-sm-10"> -->
+    <div class="col-sm-6">
+        <div class="about">
+    <h2>アカウント登録</h2>
+    <h4>情報の共有範囲は設定で管理できて安心です。</h4>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_messages! %>
 
@@ -18,7 +32,7 @@
     <div class="field">
       <%= f.label :password %>
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> 文字以上入力してください)</em>
       <% end %><br />
       <%= f.password_field :password, autocomplete: "off",class: 'form-control', placeholder: "パスワード" %>
     </div>
@@ -29,10 +43,11 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up", class: 'btn btn-primary btn-block'%>
+      <%= f.submit "アカウント登録", class: 'btn btn-success btn-lg'%>
     </div>
     <% end %>
 
     <%= render "devise/shared/links" %>
   </div>
+</div>
 </div>
