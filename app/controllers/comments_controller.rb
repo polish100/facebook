@@ -19,6 +19,13 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    unless @comment.user.id == current_user.id
+      respond_to do |format|
+        format.html { redirect_to topic_path(@comment.topic), notice: '編集できませんでした。' }
+        format.json { head :no_content }
+        format.js { render :index, notice: 'コメントを編集できませんでした。' }
+      end
+    end
   end
 
   def update
@@ -27,11 +34,21 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to topic_path(@comment.topic), notice: 'コメントは削除されました。' }
-      format.json { head :no_content }
-      format.js { render :index, notice: 'コメントは削除されました。' }
+    if @comment.user.id == current_user.id
+      @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to topic_path(@comment.topic), notice: 'コメントは削除されました。' }
+        format.json { head :no_content }
+        format.js { render :index, notice: 'コメントは削除されました。' }
+      end
+    else
+      respond_to do |format|
+
+        format.html { redirect_to topic_path(@comment.topic), notice: '削除できませんでした。' }
+        format.json { head :no_content }
+        format.js { render :index, notice: 'コメントを削除できませんでした。' }
+
+      end
     end
   end
 

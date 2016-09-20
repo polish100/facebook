@@ -23,6 +23,12 @@ class TopicsController < ApplicationController
 
   # GET /topics/1/edit
   def edit
+    unless @topic.user.id == current_user.id
+      respond_to do |format|
+        format.html { redirect_to topics_path, notice: '編集できません' }
+        format.json { render :show, status: :created, location: @topic }
+      end
+    end
   end
 
   # POST /topics
@@ -59,21 +65,29 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.json
   def destroy
-    @topic.destroy
-    respond_to do |format|
-      format.html { redirect_to topics_url, notice: 'トピックを削除しました' }
-      format.json { head :no_content }
+
+    if @topic.user.id == current_user.id
+      @topic.destroy
+      respond_to do |format|
+        format.html { redirect_to topics_url, notice: 'トピックを削除しました' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to topics_url, notice: '更新できませんでした'}
+        format.json { render json: @topic.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_topic
-      @topic = Topic.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_topic
+    @topic = Topic.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def topic_params
-      params.require(:topic).permit(:title, :content)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def topic_params
+    params.require(:topic).permit(:title, :content)
+  end
 end
