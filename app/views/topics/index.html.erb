@@ -15,6 +15,10 @@
       <p><%= notice %></p>
       <%= link_to "投稿", new_topic_path, class: 'btn btn-default btn-sm' %>
       <% @topics.each do |topic| %>
+
+      <% if (current_user.following?(topic.user) && current_user.followed?(topic.user)) || topic.user.id == current_user.id %>
+
+
       <div class="row">
         <div class = "imgleft">
           <%= profile_img(topic.user) if profile_img(topic.user) %>
@@ -31,6 +35,10 @@
         <% end %>
       </div>
       <% end %>
+
+
+  <% end %>
+
     </div>
     <div class="col-sm-3 friends">
       <p class="friends_followed">フォロワー</p>
