@@ -1,0 +1,32 @@
+
+<!-- <div class="wrapper"> -->
+<!-- <div class="topback"> -->
+<div class="container">
+<!-- <div class="row"> -->
+
+  <div class="col-sm-6">
+  <!-- <div class="pull-right"> -->
+
+  <div class="message">
+    <p class="flash"><%= notice %><%= alert %></p>
+    <p>Facebookを使うと、友達や同僚、同級生、仲間たちとつながりを深められます。ケータイ、スマートフォンからもアクセスできます。</p>
+    <img src="https://www.facebook.com/rsrc.php/v3/yx/r/pyNVUg5EM0j.png">
+  </div>
+
+  <!-- </div> -->
+  </div>
+
+  <div class="col-sm-6">
+  <!-- <div class="pull-left"> -->
+
+  <div class="about">
+    <h1>アカウント登録</h1>
+    <p>ログインフォーム</p>
+  </div>
+
+<!-- </div> -->
+<!-- </div> -->
+</div>
+</div>
+
+<!-- </div> -->

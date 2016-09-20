@@ -11,8 +11,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
-  # root 'top#index'
-  root 'topics#index'
+
+  root 'top#index'
+  # root 'topics#index'
   # root 'users/registrations#new'
   # root to: redirect('/users/sign_up')
   # get '/', to: 'devise/sessions#new'

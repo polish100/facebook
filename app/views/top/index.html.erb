@@ -1,32 +1,55 @@
-
-<!-- <div class="wrapper"> -->
-<!-- <div class="topback"> -->
 <div class="container">
-<!-- <div class="row"> -->
-
   <div class="col-sm-6">
-  <!-- <div class="pull-right"> -->
+    <!-- <div class="pull-right"> -->
 
-  <div class="message">
-    <p class="flash"><%= notice %><%= alert %></p>
-    <p>Facebookを使うと、友達や同僚、同級生、仲間たちとつながりを深められます。ケータイ、スマートフォンからもアクセスできます。</p>
-    <img src="https://www.facebook.com/rsrc.php/v3/yx/r/pyNVUg5EM0j.png">
+    <div class="message">
+      <p>Facebookを使うと、友達や同僚、同級生、仲間たちとつながりを深められます。ケータイ、スマートフォンからもアクセスできます。</p>
+      <img src="https://www.facebook.com/rsrc.php/v3/yx/r/pyNVUg5EM0j.png">
+    </div>
+
+    <!-- </div> -->
   </div>
 
-  <!-- </div> -->
-  </div>
-
+  <!-- <div class="wrapper col-md-8 col-md-offset-2 col-sm-10"> -->
   <div class="col-sm-6">
-  <!-- <div class="pull-left"> -->
+    <div class="about">
+      <p class="flash"><%= notice %><%= alert %></p>
+      <h2>アカウント登録</h2>
+      <h4>情報の共有範囲は設定で管理できて安心です。</h4>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_messages! %>
 
-  <div class="about">
-    <h1>アカウント登録</h1>
-    <p>ログインフォーム</p>
+
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true,class: 'form-control', placeholder: "メールアドレス"%>
+      </div>
+
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, class: "form-control", placeholder: "名前" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> 文字以上入力してください)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off",class: 'form-control', placeholder: "パスワード" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off",class: 'form-control', placeholder: "パスワードを再度入力" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "アカウント登録", class: 'btn btn-success btn-lg' %>
+      </div>
+      <% end %>
+      <p>ボタンを押したら、ログイン方法を数分以内にメールでご連絡します。</p>
+
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-<!-- </div> -->
-<!-- </div> -->
 </div>
-</div>
-
-<!-- </div> -->
